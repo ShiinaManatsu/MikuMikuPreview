@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HairMat_Dark
+  m_Shader: {fileID: 4800000, guid: 2fe3ea6633b3b9c41a0d39c22fd85f26, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseTone_Alpha:
+        m_Texture: {fileID: 2800000, guid: 06e3b07d72d874e46a1247bd9358c2be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 3d4257ba8b685394098a9b4824c71361, type: 3}
+        m_Scale: {x: 2, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VRTC:
+        m_Texture: {fileID: 2800000, guid: f4adb01b5f32e7545988dc0f1b66907b, type: 3}
+        m_Scale: {x: 2, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VRTC_Texture:
+        m_Texture: {fileID: 2800000, guid: 06e3b07d72d874e46a1247bd9358c2be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaLevel: 0.08
+    - _AlphaPower: 0.11
+    - _BaseIllumination: 0.386
+    - _BumpPower: 0.91
+    - _Cutoff: 0.41
+    - _DesaturateBase: 0.901
+    - _EdgeRimLight: 0
+    - _LightScatter: 0.549
+    - _Light_Bias: 0.0188
+    - _Light_Scale: 2.3
+    - _MainHighlightExponent: 39
+    - _MainHighlightPosition: 0.29
+    - _MainHighlightStrength: 1
+    - _Metallic: 0.122
+    - _NoisePower: 279
+    - _Parallax: 0.00392
+    - _SSS: 1
+    - _SecondaryHighlightExponent: 53
+    - _SecondaryHighlightPosition: 0.08
+    - _SecondaryHighlightStrength: 0.75
+    - _Spread: 0.81
+    - _TransAmbient: 0
+    - _TransDirect: 0
+    - _TransNormalDistortion: 0
+    - _TransScattering: 1
+    - _TransShadow: 0
+    - _Translucency: 0
+    - _TranslucentEffect: 0
+    - _VariaitonFromBase: 0.906
+    - __dirty: 0
+    m_Colors:
+    - _BaseColorGloss: {r: 0.41911763, g: 0.18798658, b: 0.18798658, a: 0.316}
+    - _BaseTipColorPower: {r: 0.5514706, g: 0.22539826, b: 0.105428204, a: 0.184}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _MainHighlight_Color: {r: 0.125, g: 0.09330629, b: 0.07904412, a: 1}
+    - _NoiseXY: {r: 791.2, g: 0.1, b: 0, a: 0}
+    - _RootColorPowerA: {r: 0, g: 0, b: 0, a: 1}
+    - _ScatterColor: {r: 0.9044118, g: 0.2557302, b: 0.2128028, a: 0}
+    - _SecondaryHighlightColor: {r: 0.17647058, g: 0.1507875, b: 0.12326989, a: 0}
+    - _TipColorPowerA: {r: 0, g: 0, b: 0, a: 0.634}
+    - _VRTC_Mask: {r: 0.8455882, g: 0.8076825, b: 0.6839316, a: 0.522}
+    - _VariantColor1_GlossA: {r: 0.029411793, g: 0.015469529, b: 0.0047577894, a: 0.266}
+    - _Variant_Color2_GlossA: {r: 0.022058845, g: 0.011432115, b: 0.0066500925, a: 0.216}

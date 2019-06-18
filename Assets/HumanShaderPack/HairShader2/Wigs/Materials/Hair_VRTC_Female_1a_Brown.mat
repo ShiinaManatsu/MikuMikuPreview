@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Hair_VRTC_Female_1a_Brown
+  m_Shader: {fileID: 4800000, guid: 03ff41053e45cc84989cb6abfbbd2dfd, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 19591b8e62d2fbc46bcc771f083d5bcc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VRTC:
+        m_Texture: {fileID: 2800000, guid: 782ef3ffdf428ce48934f5774562ea50, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaPower: 0.2
+    - _BaseIllumination: 0.15
+    - _BumpPower: 0.98
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _LightScatter: 0
+    - _Light_Bias: 0
+    - _Light_Scale: 0
+    - _MainHighlightExponent: 83
+    - _MainHighlightPosition: 0.07
+    - _MainHighlightStrength: 0.225
+    - _Metallic: 0.472
+    - _Mode: 0
+    - _NoisePower: 594
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SSS: 0
+    - _SecondaryHighlightExponent: 251
+    - _SecondaryHighlightPosition: 0.38
+    - _SecondaryHighlightStrength: 0.156
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _Spread: 0.88
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    - __dirty: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainHighlight_Color: {r: 0.375, g: 0.3295132, b: 0.24816176, a: 0}
+    - _RootColorPowerA: {r: 0, g: 0, b: 0, a: 0.909}
+    - _SecondaryHighlightColor: {r: 0.2794118, g: 0.23215833, b: 0.23215833, a: 0}
+    - _TipColorPowerA: {r: 0.31617647, g: 0.2715398, b: 0.20458478, a: 0.759}
+    - _VariantColor1_GlossA: {r: 0.25735295, g: 0.14479366, b: 0.11543037, a: 0.103}
+    - _Variant_Color2_GlossA: {r: 0.38235295, g: 0.22367258, b: 0.120891005, a: 0.772}

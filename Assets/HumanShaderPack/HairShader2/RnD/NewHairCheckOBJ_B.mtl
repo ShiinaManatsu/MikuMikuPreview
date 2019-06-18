@@ -1,0 +1,18 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 11.02.2019 12:29:16
+
+newmtl TEST
+	Ns 0.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.4667 0.2667 0.2667
+	Kd 0.4667 0.2667 0.2667
+	Ks 0.2071 0.1341 0.1341
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Robert\Desktop\VRTC_GM_1.png
+	map_Kd C:\Users\Robert\Desktop\VRTC_GM_1.png
+	map_d C:\Users\Robert\Desktop\OPAC_GM_1.png
+	map_bump Map__31_Normal_Bump.tga

@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: HairStrands_Heavy
+  m_Shader: {fileID: 4800000, guid: 811f70c23bcfaf14e91aa89ec71c7041, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseTone_Alpha:
+        m_Texture: {fileID: 2800000, guid: 8a00eaebffbb92648abd538dbc5e5582, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HairStrand_Coloring:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 78a0a80e899290a4eb60c7c44053ffd9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaLevel: 0.66
+    - _BumpPower: 0.395
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 10
+    - _EdgeRimLight: 0.42
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _MainHighlightExponent: 300
+    - _MainHighlightPosition: 1.88
+    - _MainHighlightStrength: 0.893
+    - _Metallic: 0.454
+    - _Mode: 3
+    - _Noise: 0.374
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SecondaryHighlightExponent: 405
+    - _SecondaryHighlightPosition: -0.45
+    - _SecondaryHighlightStrength: 0.568
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _Spread: -0.882
+    - _SrcBlend: 1
+    - _TransAmbient: 0.188
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0.123
+    - _TransScattering: 3.2
+    - _TransShadow: 0.9
+    - _Translucency: 0
+    - _TranslucentEffect: 3.1
+    - _UVSec: 0
+    - _VariaitonFromBase: 0.287
+    - _ZWrite: 0
+    - __dirty: 0
+    m_Colors:
+    - _BaseColorGloss: {r: 0.066176474, g: 0.03422921, b: 0, a: 0.503}
+    - _BaseTipColorPower: {r: 0.5735294, g: 0.27955195, b: 0.012651396, a: 0.203}
+    - _Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainHighlight_Color: {r: 0.31617647, g: 0.13557748, b: 0.018598614, a: 0}
+    - _SecondaryHighlightColor: {r: 0.7647059, g: 0.54367024, b: 0.44420415, a: 0}
+    - _StrandTone1: {r: 0.9044118, g: 0.7517808, b: 0.4788062, a: 0}
+    - _StrandTone2: {r: 0.375, g: 0.2175076, b: 0.09650736, a: 0}

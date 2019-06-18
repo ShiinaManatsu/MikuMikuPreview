@@ -1,0 +1,74 @@
+
+Thank you for buying Hair Shader 2.0
+Version 1.0 - 5th October, 2018
+Last Update 1.56 - 16th February, 2019
+
+This is a heavily extended version of Hair Shader Simple with more accurate anisotopy and translucency
+
+Please note, this shader uses alpha with dithering, similar to alpha and alpha cut-out but with some fade in the form of pattern-dithered pixels. 
+Overall the effect was the best out of all the tests with Cut-out being pretty close to the next best thing. With this, at leat, you get a sense of 
+transparency. If you are geting sorting issues try changing the Render Queue value at the bottom of the material inspector.
+
+Shader Types:
+Mod1				- Dither Faded Alpha (uses dots to simulate fade, best to avoid zdepth issues) (2 sided)
+Mod1_FrontCulled	- Dither Faded Alpha (uses dots to simulate fade, best to avoid zdepth issues) (FrontFace Culled)
+Cutout				- Harsh cutout based on alpha level and Mask clip level (2 sided)
+Transparent			- Soft fade (Backface culled) Known for depth ordering issues.
+Mod2				- Custom Lighting, supports better shadows
+Mod3				- Refined controls and shader
+VRTC				- RGBA = VRTC = Variation(Red), Root(Green), Tip(Blue), Cutout(Alpha) , this is similar to the custom HDRP Shader Graph Material.
+
+Best Combination Mod1_FrontCulled+Transparent
+
+Onto the shader materials:
+
+First off you will see the Translucency settings
+Strength			: the amount
+Normal Distortion	: affect by normals
+Scattering			: covering area
+Direct				: affect that direct lights have on the effect
+Ambient				: affect that ambient light has on the effect
+EdgeRimLight		: how much is scattered around the edge
+Shadow				: how much is killed by the shadows
+
+BaseColor-Gloss		: The overall color of the hair(RGB) and the gloss level (A) 
+					  
+BaseTone_Alpha		: A texture used to create variation in tone (keep this texture quite light like the example) and the Alpha level (A)
+(you can use tiling and offset with this texture) (R)Red controls metalness : (G)Green controls the tonal variations/tip color: (B) Has a Noise Effect
+
+BaseTipColor-Power	: The color of the end tip of the hair strand(RGB) and how much of it(A)
+AlphaLevel			: How much of the Alpha from the BaseTone_Alpha(A) is pushed out (contrast)
+VariationFromBase	: How much of the Tonal variation of the BaseTone above is used (otherwise its white)
+NormalMap			: A normal Map to use for scattering the light
+BumpPower			: How much of the Normal map is pushed (0 is not at all, 1 is fully)
+Metallic			: How metallic the hair is (this is also affected by the base tone texture)
+
+Now we have the highlights..
+
+MainHighlightColor		: The color of the main anisotropic highlight
+Main Highlight Position	: The Position offset of the main Highlight
+Main HighlightStrength	: The strength
+Main HighlightExponent	: The width (the lower the wider)
+
+Secondary Highlight Color	:	The color of the secondary highlight
+Secondary Highlight Position:	The position offset of this highlight
+Secondary Highlight Strength:	The strength
+Secondary Highlight Exponent:	The width(lower value is a wider coverage)
+Spread						:	How much the highlights are affected by the green channel of the normal map
+
+And that is it for now.
+
+This pack will be expanded on but do not worry as this shader will remain the same, new version of this shader
+will have new naming and features that are only variations or alternatives to this one.
+
+Thank you for supporting me.
+Special thanks to chengkeng1987 for supporting and testing this pack during it's development.
+
+Any request or bud fixes, please do not hesitate to email me, I am always ready to improve.
+me@robertramsay.co.uk
+
+
+Version Log:
+
+V1.0 - 5th Oct 2018 (submission date)
+
