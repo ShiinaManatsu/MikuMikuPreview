@@ -9112,7 +9112,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 32, y: -17.866667}
-  m_SizeDelta: {x: -32, y: -35.733334}
+  m_SizeDelta: {x: -32, y: -35.733337}
   m_Pivot: {x: 0, y: 1}
 --- !u!225 &1367590649
 CanvasGroup:
@@ -13696,7 +13696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Version: 1
-  shadowResolution: 1024
+  shadowResolution: 2048
   shadowDimmer: 1
   volumetricShadowDimmer: 1
   shadowFadeDistance: 10000

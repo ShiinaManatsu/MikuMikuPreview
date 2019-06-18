@@ -202,8 +202,6 @@ namespace MMD
                 }
                 Material result = new Material(Resources.Load<Material>("Transparent"));
                 result.SetTexture("_BaseColorMap", main_texture);
-                result.SetVector("_BaseColor", pmdMat.diffuse_color);
-                result.SetFloat("_TransparentSortPriority", i);
 
                 mats[i] = result;
 			}

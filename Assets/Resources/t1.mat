@@ -7,21 +7,21 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Transparent
+  m_Name: t1
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _BLENDMODE_ALPHA _BLENDMODE_PRESERVE_SPECULAR_LIGHTING
-    _DISABLE_DECALS _DOUBLESIDED_ON _ENABLE_FOG_ON_TRANSPARENT _ENABLE_GEOMETRIC_SPECULAR_AA
-    _NORMALMAP_TANGENT_SPACE _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _BLENDMODE_ALPHA _BLENDMODE_PRESERVE_SPECULAR_LIGHTING _DOUBLESIDED_ON
+    _ENABLE_FOG_ON_TRANSPARENT _NORMALMAP_TANGENT_SPACE _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
-    MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
   - DistortionVectors
+  - TransparentDepthPrepass
   - TransparentDepthPostpass
+  - TransparentBackface
   - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
@@ -32,7 +32,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: -1}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
         m_Texture: {fileID: 0}
@@ -110,27 +110,21 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _UnlitColorMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1D23822D: 0.5
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
     - _AlbedoAffectEmissive: 0
-    - _Alpha: 1
-    - _AlphaCutoff: 0.01
-    - _AlphaCutoffEnable: 1
-    - _AlphaCutoffPostpass: 0
-    - _AlphaCutoffPrepass: 0.7
+    - _AlphaCutoff: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaCutoffPostpass: 0.5
+    - _AlphaCutoffPrepass: 0.5
     - _Anisotropy: 0
     - _BlendMode: 0
     - _CoatMask: 0
     - _CullMode: 0
-    - _CullModeForward: 2
-    - _Cutoff: 0.01
+    - _CullModeForward: 0
+    - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _DetailAlbedoScale: 1
     - _DetailNormalScale: 1
@@ -149,7 +143,6 @@ Material:
     - _DistortionDepthTest: 1
     - _DistortionDstBlend: 1
     - _DistortionEnable: 0
-    - _DistortionOnly: 0
     - _DistortionScale: 1
     - _DistortionSrcBlend: 1
     - _DistortionVectorBias: -1
@@ -161,7 +154,7 @@ Material:
     - _EmissiveColorMode: 1
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
-    - _EnableGeometricSpecularAA: 1
+    - _EnableGeometricSpecularAA: 0
     - _EnableMotionVectorForVertexAnimation: 0
     - _EnableSpecularOcclusion: 0
     - _EnableWind: 0
@@ -209,28 +202,27 @@ Material:
     - _StencilWriteMaskMV: 128
     - _Stiffness: 1
     - _SubsurfaceMask: 1
-    - _SupportDecals: 0
+    - _SupportDecals: 1
     - _SurfaceType: 1
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
     - _ThicknessMultiplier: 1
     - _TransmissionEnable: 1
-    - _TransparentBackfaceEnable: 1
+    - _TransparentBackfaceEnable: 0
     - _TransparentDepthPostpassEnable: 0
-    - _TransparentDepthPrepassEnable: 1
+    - _TransparentDepthPrepassEnable: 0
     - _TransparentSortPriority: 0
     - _UVBase: 0
     - _UVDetail: 0
     - _UVEmissive: 0
     - _ZTestDepthEqualForOpaque: 4
-    - _ZTestGBuffer: 3
+    - _ZTestGBuffer: 4
     - _ZTestModeDistortion: 4
     - _ZWrite: 0
     m_Colors:
-    - Vector2_92636EDA: {r: 1, g: -1, b: 0, a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.9882353}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.9882353}
+    - _BaseColor: {r: 1, g: 0.1142519, b: 0, a: 0.14509805}
+    - _Color: {r: 1, g: 0.11425186, b: 0, a: 0.14509805}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
@@ -242,4 +234,3 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _UnlitColor: {r: 1, g: 1, b: 1, a: 1}

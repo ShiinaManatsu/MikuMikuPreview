@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Materials>
+  <Material Name="Hair" Throttle="0.5">
+    <Type>hair</Type>
+    <Type>头发</Type>
+    <Type>髪</Type>
+  </Material>
+  <Material Name="Default" Throttle="0.05">
+    <Type>Default</Type>
+  </Material>
+</Materials>

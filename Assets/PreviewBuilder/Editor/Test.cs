@@ -1,4 +1,5 @@
-﻿using MMD;
+﻿using MaterialExceptionXML;
+using MMD;
 using PreviewBuilder.Xmls;
 using System;
 using System.IO;
@@ -92,7 +93,8 @@ namespace PreviewBuilder
         [ExecuteInEditMode]
         public static void LoadT()
         {
-            var model_agent = new ModelAgent(@"D:\Backup_OneDrive_Swifties\MMD\++++++++Model+++++++++\2019 04\TDA 洛天依 汉煌矜女 Ver 1.00\TDA 洛天依 汉煌矜女 Ver 1.00.pmx");
+            CleanAssetDatabase();
+            var model_agent = new ModelAgent(@"D:\Backup_OneDrive_Swifties\MMD\++++++++Model+++++++++\2019 06\YYB式 花精灵miku\yyb式 花精灵miku by小雪球.pmx");
 
             MMD.PMX.PMXFormat pmx_format;
             try
@@ -113,6 +115,12 @@ namespace PreviewBuilder
             fbxGameObject.transform.localScale = new Vector3(0.085f, 0.085f, 0.085f);
             fbxGameObject.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
 
+        }
+
+        [MenuItem("MMM/XmlTest")]
+        public static void XmlTest()
+        {
+            Debug.Log(Application.dataPath);
         }
 
         [MenuItem("MMM/CleanAssetDatabase")]

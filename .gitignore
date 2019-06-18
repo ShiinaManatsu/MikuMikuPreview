@@ -28,6 +28,7 @@
 # Custom folder
 Recordings/
 Backup/
+Build/
 
 # Gradle cache directory
 .gradle/

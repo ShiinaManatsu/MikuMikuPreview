@@ -81,10 +81,11 @@ namespace MMD
 
                 MeshCreationInfo[] creation_info = CreateMeshCreationInfo();                // メッシュを作成する為の情報を作成
                 Mesh[] mesh = CreateMesh(creation_info);                                    // メッシュの生成・設定
-                foreach (Mesh m in mesh)
-                {
-                    m.RecalculateNormals();
-                }
+                                                                                            //foreach (Mesh m in mesh)
+                                                                                            //{
+                                                                                            //    m.RecalculateNormals();
+
+                //}
                 Material[][] materials = CreateMaterials(creation_info);                    // マテリアルの生成・設定
 
                 GameObject[] bones = CreateBones();                                         // ボーンの生成・設定
@@ -681,100 +682,41 @@ namespace MMD
             }
 
             Material result = new Material(Resources.Load<Material>("Transparent"));
+            //Material result = new Material(Shader.Find("HDRenderPipeline/Lit"));
+            result.renderQueue = (int)(3000 + material_index);
             result.SetTexture("_BaseColorMap", main_texture);
             result.SetVector("_BaseColor", material.diffuse_color);
             result.SetFloat("_TransparentSortPriority", material_index);
-
             result.name = format_.material_list.material[material_index].name;
 
+            try
+            {
+                foreach (var m in GameObject.Find("Preview Builder Main").GetComponent<PreviewBuilder.PreviewBuilder>().MaterialExtraConfigurationList.Materials)
+                {
+                    foreach (var item in m.MaterialName)
+                    {
+                        if (result.name.ToUpper().Contains(item.ToUpper()))
+                        {
+                            result.SetFloat("_AlphaCutoffPrepass", float.Parse(m.Throttle));
+                            Debug.Log($"{result.name} {m.Throttle}");
+                            goto Found;
+                        }
+                        else
+                        {
+                            var defaultValue = (from t in GameObject.Find("Preview Builder Main").GetComponent<PreviewBuilder.PreviewBuilder>().MaterialExtraConfigurationList.Materials
+                                                where t.Name == "Default"
+                                                select t).FirstOrDefault();
+                            result.SetFloat("_AlphaCutoffPrepass", float.Parse(defaultValue.Throttle));
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
 
-            ////マテリアルに設定
-            //string shader_path = GetMmdShaderPath(material, main_texture, is_transparent);
-            //Material result = new Material(Shader.Find(shader_path));
-
-            //// シェーダに依って値が有ったり無かったりするが、設定してもエラーに為らない様なので全部設定
-            //result.SetColor("_Color", material.diffuse_color);
-            //result.SetColor("_AmbColor", material.ambient_color);
-            //result.SetFloat("_Opacity", material.diffuse_color.a);
-            //result.SetColor("_SpecularColor", material.specular_color);
-            //result.SetFloat("_Shininess", material.specularity);
-            //// エッジ
-            //const float c_default_scale = 0.085f; //0.085fの時にMMDと一致する様にしているので、それ以外なら補正
-            //result.SetFloat("_OutlineWidth", material.edge_size * scale_ / c_default_scale);
-            //result.SetColor("_OutlineColor", material.edge_color);
-            ////カスタムレンダーキュー
-            //{
-            //    MMDEngine engine = root_game_object_.GetComponent<MMDEngine>();
-            //    if (engine.enable_render_queue && IsTransparentMaterial(is_transparent))
-            //    {
-            //        //カスタムレンダーキューが有効 かつ マテリアルが透過なら
-            //        //マテリアル順に並べる
-            //        result.renderQueue = engine.render_queue_value + (int)material_index;
-            //    }
-            //    else
-            //    {
-            //        //非透明なら
-            //        result.renderQueue = -1;
-            //    }
-            //}
-
-            //// スフィアテクスチャ
-            //if (material.sphere_texture_index < format_.texture_list.texture_file.Length)
-            //{
-            //    string sphere_texture_file_name = format_.texture_list.texture_file[material.sphere_texture_index];
-            //    string path = format_.meta_header.folder + "/" + sphere_texture_file_name;
-            //    Texture2D sphere_texture = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D));
-
-            //    switch (material.sphere_mode)
-            //    {
-            //        case PMXFormat.Material.SphereMode.AddSphere: // 加算
-            //            result.SetTexture("_SphereAddTex", sphere_texture);
-            //            result.SetTextureScale("_SphereAddTex", new Vector2(1, -1));
-            //            break;
-            //        case PMXFormat.Material.SphereMode.MulSphere: // 乗算
-            //            result.SetTexture("_SphereMulTex", sphere_texture);
-            //            result.SetTextureScale("_SphereMulTex", new Vector2(1, -1));
-            //            break;
-            //        case PMXFormat.Material.SphereMode.SubTexture: // サブテクスチャ
-            //                                                       //サブテクスチャ用シェーダーが無いので設定しない
-            //            break;
-            //        default:
-            //            //empty.
-            //            break;
-
-            //    }
-            //}
-
-            //// トゥーンテクスチャ
-            //{
-            //    string toon_texture_name = null;
-            //    if (0 < material.common_toon)
-            //    {
-            //        //共通トゥーン
-            //        toon_texture_name = "toon" + material.common_toon.ToString("00") + ".bmp";
-            //    }
-            //    else if (material.toon_texture_index < format_.texture_list.texture_file.Length)
-            //    {
-            //        //自前トゥーン
-            //        toon_texture_name = format_.texture_list.texture_file[material.toon_texture_index];
-            //    }
-            //    if (!string.IsNullOrEmpty(toon_texture_name))
-            //    {
-            //        string resource_path = UnityEditor.AssetDatabase.GetAssetPath(Shader.Find("MMD/HalfLambertOutline"));
-            //        Texture2D toon_texture = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(resource_path, typeof(Texture2D));
-            //        result.SetTexture("_ToonTex", toon_texture);
-            //        result.SetTextureScale("_ToonTex", new Vector2(1, -1));
-            //    }
-            //}
-
-            //// テクスチャが空でなければ登録
-            //if (null != main_texture)
-            //{
-            //    result.mainTexture = main_texture;
-            //    result.mainTextureScale = new Vector2(1, -1);
-            //}
-
-            return result;
+        Found: return result;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using MaterialUI;
+﻿using MaterialExceptionXML;
+using MaterialUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,6 +60,8 @@ namespace PreviewBuilder
 
             StartCoroutine(ShowTip(UIManager.TipText, 1));
             StartCoroutine(ShowTip($"Max size of texture: {SystemInfo.maxTextureSize.ToString()} * {SystemInfo.maxTextureSize.ToString()}", 2));
+
+            MaterialExtraConfigurationList = MaterialException.CreateMaterialConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "MaterialConfiguration.xml"));
         }
         #endregion
 
@@ -75,6 +78,8 @@ namespace PreviewBuilder
         public GameObject makeButton;
         public Camera rtCamera;
         public GameObject canvas;
+
+        public MaterialExtraConfigurationList MaterialExtraConfigurationList { get; set; }
 
         public bool IsFolderCorrect
         {
