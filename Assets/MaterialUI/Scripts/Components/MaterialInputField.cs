@@ -1124,7 +1124,14 @@ namespace MaterialUI
                 }
                 else
                 {
-                    m_CounterText.color = IsSelected() ? m_CounterActiveColor : m_CounterInactiveColor;
+                    try
+                    {
+                        m_CounterText.color = IsSelected() ? m_CounterActiveColor : m_CounterInactiveColor;
+                    }
+                    catch
+                    {
+                        Debug.LogWarning("MaterialInputField:1127");
+                    }
                 }
 
                 TweenManager.EndTween(m_ValidationColorTweener);

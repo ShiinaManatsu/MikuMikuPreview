@@ -12,17 +12,23 @@ public class LightPanelVisibleController : MonoBehaviour
     public float minimum = 0.2F;
     public float maximum = 1.0F;
 
-    public float fadeSpeed=1f;
+    public float fadeSpeed = 1f;
 
     // starting value for the Lerp
     static float t = 0.0f;
 
     SetTransparent handler;
-    private void Update()
+    private void FixedUpdate()
+    {
+        //InvokeHandler();
+        handler?.Invoke();
+    }
+
+    private void InvokeHandler()
     {
         foreach (var item in handler.GetInvocationList())
         {
-            item.DynamicInvoke();
+            item?.DynamicInvoke();
         }
     }
 

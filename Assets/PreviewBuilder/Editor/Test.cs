@@ -94,7 +94,7 @@ namespace PreviewBuilder
         public static void LoadT()
         {
             CleanAssetDatabase();
-            var model_agent = new ModelAgent(@"D:\Backup_OneDrive_Swifties\MMD\++++++++Model+++++++++\2019 06\YYB式 花精灵miku\yyb式 花精灵miku by小雪球.pmx");
+            var model_agent = new ModelAgent(@"D:\Project.Unity\MikuMikuPreview\Assets\PreviewBuilder\Tempt\_Tda Sexy Bunny\miku\Tda Sexy Bunny Miku (短裤).pmx");
 
             MMD.PMX.PMXFormat pmx_format;
             try

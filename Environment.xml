@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Environment>
+  <Setting Name="ProcedualSky">
+    <Value Key="AtmosphereThickness">0.5</Value>
+    <Value Key="SkyTint"></Value>
+    <Value Key="GroundColor"></Value>
+    <Value Key="Exposure">1.25</Value>
+    <Value Key="Multiplier">1</Value>
+  </Setting>
+  <Setting Name="GradientSky">
+    <Value Key="Top"></Value>
+    <Value Key="Middle"></Value>
+    <Value Key="Bottom"></Value>
+    <Value Key="GradientDiffusion">1</Value>
+  </Setting>
+</Environment>

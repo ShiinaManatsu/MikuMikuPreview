@@ -5,7 +5,7 @@
     <Type>头发</Type>
     <Type>髪</Type>
   </Material>
-  <Material Name="Default" Throttle="0.05">
+  <Material Name="Default" Throttle="0.99">
     <Type>Default</Type>
   </Material>
 </Materials>
