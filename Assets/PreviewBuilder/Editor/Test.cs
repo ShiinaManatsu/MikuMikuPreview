@@ -1,15 +1,10 @@
-﻿using MaterialExceptionXML;
-using MMD;
+﻿using MMD;
 using PreviewBuilder.Xmls;
 using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.Experimental.Rendering.HDPipeline;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace PreviewBuilder
 {
@@ -94,7 +89,9 @@ namespace PreviewBuilder
         public static void LoadT()
         {
             CleanAssetDatabase();
-            var model_agent = new ModelAgent(@"D:\Project.Unity\MikuMikuPreview\Assets\PreviewBuilder\Tempt\_Tda Sexy Bunny\miku\Tda Sexy Bunny Miku (短裤).pmx");
+            string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "*");
+            Debug.Log(path);
+            var model_agent = new ModelAgent(path);
 
             MMD.PMX.PMXFormat pmx_format;
             try

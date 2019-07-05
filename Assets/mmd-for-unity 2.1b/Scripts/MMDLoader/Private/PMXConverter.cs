@@ -67,17 +67,17 @@ namespace MMD
             use_ik_ = use_ik;
             scale_ = scale;
             root_game_object_ = new GameObject(format_.meta_header.name);
-            MMDEngine engine = root_game_object_.AddComponent<MMDEngine>(); //MMDEngine追加
+            //MMDEngine engine = root_game_object_.AddComponent<MMDEngine>(); //MMDEngine追加
                                                                             //スケール・エッジ幅
 
             try
             {
-                engine.scale = scale_;
-                engine.outline_width = 1.0f;
-                engine.material_outline_widths = format.material_list.material.Select(x => x.edge_size).ToArray();
-                engine.enable_render_queue = false; //初期値無効
-                const int c_render_queue_transparent = 3000;
-                engine.render_queue_value = c_render_queue_transparent;
+                //engine.scale = scale_;
+                //engine.outline_width = 1.0f;
+                //engine.material_outline_widths = format.material_list.material.Select(x => x.edge_size).ToArray();
+                //engine.enable_render_queue = false; //初期値無効
+                //const int c_render_queue_transparent = 3000;
+                //engine.render_queue_value = c_render_queue_transparent;
 
                 MeshCreationInfo[] creation_info = CreateMeshCreationInfo();                // メッシュを作成する為の情報を作成
                 Mesh[] mesh = CreateMesh(creation_info);                                    // メッシュの生成・設定
@@ -90,58 +90,58 @@ namespace MMD
 
                 GameObject[] bones = CreateBones();                                         // ボーンの生成・設定
                 SkinnedMeshRenderer[] renderers = BuildingBindpose(mesh, materials, bones); // バインドポーズの作成
-                CreateMorph(mesh, materials, bones, renderers, creation_info);              // モーフの生成・設定
+                //CreateMorph(mesh, materials, bones, renderers, creation_info);              // モーフの生成・設定
 
 
-                // BoneController・IKの登録(use_ik_を使った判定はEntryBoneController()の中で行う)
-                {
-                    engine.bone_controllers = EntryBoneController(bones);
-                    engine.ik_list = engine.bone_controllers.Where(x => null != x.ik_solver)
-                                                            .Select(x => x.ik_solver)
-                                                            .ToArray();
-                }
+                //// BoneController・IKの登録(use_ik_を使った判定はEntryBoneController()の中で行う)
+                //{
+                //    engine.bone_controllers = EntryBoneController(bones);
+                //    engine.ik_list = engine.bone_controllers.Where(x => null != x.ik_solver)
+                //                                            .Select(x => x.ik_solver)
+                //                                            .ToArray();
+                //}
 
-                // 剛体関連
-                if (use_rigidbody)
-                {
-                    GameObject[] rigids = CreateRigids();
-                    AssignRigidbodyToBone(bones, rigids);
-                    SetRigidsSettings(bones, rigids);
-                    GameObject[] joints = CreateJoints(rigids);
-                    GlobalizeRigidbody(joints);
+                //// 剛体関連
+                //if (use_rigidbody)
+                //{
+                //    GameObject[] rigids = CreateRigids();
+                //    AssignRigidbodyToBone(bones, rigids);
+                //    SetRigidsSettings(bones, rigids);
+                //    GameObject[] joints = CreateJoints(rigids);
+                //    GlobalizeRigidbody(joints);
 
-                    // 非衝突グループ
-                    List<int>[] ignoreGroups = SettingIgnoreRigidGroups(rigids);
-                    int[] groupTarget = GetRigidbodyGroupTargets(rigids);
+                //    // 非衝突グループ
+                //    List<int>[] ignoreGroups = SettingIgnoreRigidGroups(rigids);
+                //    int[] groupTarget = GetRigidbodyGroupTargets(rigids);
 
-                    MMDEngine.Initialize(engine, groupTarget, ignoreGroups, rigids);
-                }
+                //    MMDEngine.Initialize(engine, groupTarget, ignoreGroups, rigids);
+                //}
 
-                // Mecanim設定
-                if (AnimationType.LegacyAnimation != animation_type)
-                {
-                    //アニメーター追加
-                    AvatarSettingScript avatar_setting = new AvatarSettingScript(root_game_object_, bones);
-                    switch (animation_type)
-                    {
-                        case AnimationType.GenericMecanim: //汎用アバターでのMecanim
-                            avatar_setting.SettingGenericAvatar();
-                            break;
-                        case AnimationType.HumanMecanim: //人型アバターでのMecanim
-                            avatar_setting.SettingHumanAvatar();
-                            break;
-                        default:
-                            throw new System.ArgumentException();
-                    }
+                //// Mecanim設定
+                //if (AnimationType.LegacyAnimation != animation_type)
+                //{
+                //    //アニメーター追加
+                //    AvatarSettingScript avatar_setting = new AvatarSettingScript(root_game_object_, bones);
+                //    switch (animation_type)
+                //    {
+                //        case AnimationType.GenericMecanim: //汎用アバターでのMecanim
+                //            avatar_setting.SettingGenericAvatar();
+                //            break;
+                //        case AnimationType.HumanMecanim: //人型アバターでのMecanim
+                //            avatar_setting.SettingHumanAvatar();
+                //            break;
+                //        default:
+                //            throw new System.ArgumentException();
+                //    }
 
-                    string path = format_.meta_header.folder + "/";
-                    string name = GetFilePathString(format_.meta_header.name);
-                    string file_name = path + name + ".avatar.asset";
-                }
-                else
-                {
-                    root_game_object_.AddComponent<Animation>();    // アニメーション追加
-                }
+                //    string path = format_.meta_header.folder + "/";
+                //    string name = GetFilePathString(format_.meta_header.name);
+                //    string file_name = path + name + ".avatar.asset";
+                //}
+                //else
+                //{
+                //    root_game_object_.AddComponent<Animation>();    // アニメーション追加
+                //}
 
                 return root_game_object_;
             }
@@ -719,136 +719,6 @@ namespace MMD
         Found: return result;
         }
 
-        /// <summary>
-        /// MMDシェーダーパスの取得
-        /// </summary>
-        /// <returns>MMDシェーダーパス</returns>
-        /// <param name='material'>シェーダーを設定するマテリアル</param>
-        /// <param name='texture'>シェーダーに設定するメインテクスチャ</param>
-        /// <param name='is_transparent'>透過か</param>
-        string GetMmdShaderPath(PMXFormat.Material material, Texture2D texture, bool is_transparent)
-        {
-            string result = "MMD/";
-            if (IsTransparentMaterial(is_transparent))
-            {
-                result += "Transparent/";
-            }
-            result += "PMDMaterial";
-            if (IsEdgeMaterial(material))
-            {
-                result += "-with-Outline";
-            }
-            if (IsCullBackMaterial(material))
-            {
-                result += "-CullBack";
-            }
-            if (IsNoCastShadowMaterial(material))
-            {
-                result += "-NoCastShadow";
-            }
-#if MFU_ENABLE_NO_RECEIVE_SHADOW_SHADER    //影受け無しのシェーダはまだ無いので無効化
-			if (IsNoReceiveShadowMaterial(material)) {
-				result += "-NoReceiveShadow";
-			}
-#endif //MFU_ENABLE_NO_RECEIVE_SHADOW_SHADER
-            return result;
-        }
-
-        /// <summary>
-        /// 透過マテリアル確認
-        /// </summary>
-        /// <returns>true:透過, false:不透明</returns>
-        /// <param name='is_transparent'>透過か</param>
-        bool IsTransparentMaterial(bool is_transparent)
-        {
-            return is_transparent;
-        }
-
-        /// <summary>
-        /// エッジマテリアル確認
-        /// </summary>
-        /// <returns>true:エッジ有り, false:無エッジ</returns>
-        /// <param name='material'>シェーダーを設定するマテリアル</param>
-        bool IsEdgeMaterial(PMXFormat.Material material)
-        {
-            bool result;
-            if (0 != (PMXFormat.Material.Flag.Edge & material.flag))
-            {
-                //エッジ有りなら
-                result = true;
-            }
-            else
-            {
-                //エッジ無し
-                result = false;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 背面カリングマテリアル確認
-        /// </summary>
-        /// <returns>true:背面カリングする, false:背面カリングしない</returns>
-        /// <param name='material'>シェーダーを設定するマテリアル</param>
-        bool IsCullBackMaterial(PMXFormat.Material material)
-        {
-            bool result;
-            if (0 != (PMXFormat.Material.Flag.Reversible & material.flag))
-            {
-                //両面描画なら
-                //背面カリングしない
-                result = false;
-            }
-            else
-            {
-                //両面描画で無いなら
-                //背面カリングする
-                result = true;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 無影マテリアル確認
-        /// </summary>
-        /// <returns>true:無影, false:影放ち</returns>
-        /// <param name='material'>シェーダーを設定するマテリアル</param>
-        bool IsNoCastShadowMaterial(PMXFormat.Material material)
-        {
-            bool result;
-            if (0 != (PMXFormat.Material.Flag.CastShadow & material.flag))
-            {
-                //影放ち
-                result = false;
-            }
-            else
-            {
-                //無影
-                result = true;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 影受け無しマテリアル確認
-        /// </summary>
-        /// <returns>true:影受け無し, false:影受け</returns>
-        /// <param name='material'>シェーダーを設定するマテリアル</param>
-        bool IsNoReceiveShadowMaterial(PMXFormat.Material material)
-        {
-            bool result;
-            if (0 != (PMXFormat.Material.Flag.ReceiveSelfShadow & material.flag))
-            {
-                //影受け
-                result = false;
-            }
-            else
-            {
-                //影受け無し
-                result = true;
-            }
-            return result;
-        }
         /// <summary>
         /// ボーン作成
         /// </summary>
