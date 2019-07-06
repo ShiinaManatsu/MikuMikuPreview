@@ -193,7 +193,9 @@ public partial class PMXLoaderScript {
 		}
 		result.edge_color = Color.black;
 		result.edge_size = 1.0f;
-		result.usually_texture_index = uint.MaxValue;
+
+		//result.usually_texture_index = uint.MaxValue;
+
 		if (!string.IsNullOrEmpty(pmd_material.texture_file_name)) {
 			result.usually_texture_index = get_texture_index(pmd_material.texture_file_name);
 		}

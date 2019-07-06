@@ -1,10 +1,11 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using MMD.PMX;
-using System.IO;
+﻿using MMD.PMX;
+using Pfim;
 using System;
-using System.Text;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace MMD
 {
@@ -67,88 +68,22 @@ namespace MMD
             use_ik_ = use_ik;
             scale_ = scale;
             root_game_object_ = new GameObject(format_.meta_header.name);
-            //MMDEngine engine = root_game_object_.AddComponent<MMDEngine>(); //MMDEngine追加
-                                                                            //スケール・エッジ幅
 
             try
             {
-                //engine.scale = scale_;
-                //engine.outline_width = 1.0f;
-                //engine.material_outline_widths = format.material_list.material.Select(x => x.edge_size).ToArray();
-                //engine.enable_render_queue = false; //初期値無効
-                //const int c_render_queue_transparent = 3000;
-                //engine.render_queue_value = c_render_queue_transparent;
-
                 MeshCreationInfo[] creation_info = CreateMeshCreationInfo();                // メッシュを作成する為の情報を作成
                 Mesh[] mesh = CreateMesh(creation_info);                                    // メッシュの生成・設定
-                                                                                            //foreach (Mesh m in mesh)
-                                                                                            //{
-                                                                                            //    m.RecalculateNormals();
-
-                //}
                 Material[][] materials = CreateMaterials(creation_info);                    // マテリアルの生成・設定
 
                 GameObject[] bones = CreateBones();                                         // ボーンの生成・設定
                 SkinnedMeshRenderer[] renderers = BuildingBindpose(mesh, materials, bones); // バインドポーズの作成
-                //CreateMorph(mesh, materials, bones, renderers, creation_info);              // モーフの生成・設定
-
-
-                //// BoneController・IKの登録(use_ik_を使った判定はEntryBoneController()の中で行う)
-                //{
-                //    engine.bone_controllers = EntryBoneController(bones);
-                //    engine.ik_list = engine.bone_controllers.Where(x => null != x.ik_solver)
-                //                                            .Select(x => x.ik_solver)
-                //                                            .ToArray();
-                //}
-
-                //// 剛体関連
-                //if (use_rigidbody)
-                //{
-                //    GameObject[] rigids = CreateRigids();
-                //    AssignRigidbodyToBone(bones, rigids);
-                //    SetRigidsSettings(bones, rigids);
-                //    GameObject[] joints = CreateJoints(rigids);
-                //    GlobalizeRigidbody(joints);
-
-                //    // 非衝突グループ
-                //    List<int>[] ignoreGroups = SettingIgnoreRigidGroups(rigids);
-                //    int[] groupTarget = GetRigidbodyGroupTargets(rigids);
-
-                //    MMDEngine.Initialize(engine, groupTarget, ignoreGroups, rigids);
-                //}
-
-                //// Mecanim設定
-                //if (AnimationType.LegacyAnimation != animation_type)
-                //{
-                //    //アニメーター追加
-                //    AvatarSettingScript avatar_setting = new AvatarSettingScript(root_game_object_, bones);
-                //    switch (animation_type)
-                //    {
-                //        case AnimationType.GenericMecanim: //汎用アバターでのMecanim
-                //            avatar_setting.SettingGenericAvatar();
-                //            break;
-                //        case AnimationType.HumanMecanim: //人型アバターでのMecanim
-                //            avatar_setting.SettingHumanAvatar();
-                //            break;
-                //        default:
-                //            throw new System.ArgumentException();
-                //    }
-
-                //    string path = format_.meta_header.folder + "/";
-                //    string name = GetFilePathString(format_.meta_header.name);
-                //    string file_name = path + name + ".avatar.asset";
-                //}
-                //else
-                //{
-                //    root_game_object_.AddComponent<Animation>();    // アニメーション追加
-                //}
-
                 return root_game_object_;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                UnityEngine.Object.Destroy(root_game_object_);
-                throw e;
+                //UnityEngine.Object.DestroyImmediate(root_game_object_);
+                Debug.LogError(e + " " + e.Message);
+                return root_game_object_;
             }
         }
 
@@ -522,11 +457,9 @@ namespace MMD
             return Enumerable.Range(0, format_.material_list.material.Length)
                             .Select(x => new
                             {
-                                material_index = (uint)x
-                                            ,
+                                material_index = (uint)x,
                                 is_transparent = false
-                            }
-                                    )
+                            })
                             .Select(x => ConvertMaterial(x.material_index, x.is_transparent))
                             .ToArray();
         }
@@ -647,6 +580,28 @@ namespace MMD
             return result;
         }
 
+        public static Texture2D LoadTextureDXT(byte[] ddsBytes, TextureFormat textureFormat)
+        {
+            if (textureFormat != TextureFormat.DXT1 && textureFormat != TextureFormat.DXT5)
+                throw new Exception("Invalid TextureFormat. Only DXT1 and DXT5 formats are supported by this method.");
+
+            byte ddsSizeCheck = ddsBytes[4];
+            if (ddsSizeCheck != 124)
+                throw new Exception("Invalid DDS DXTn texture. Unable to read");  //this header byte should be 124 for DDS image files
+
+            int height = ddsBytes[13] * 256 + ddsBytes[12];
+            int width = ddsBytes[17] * 256 + ddsBytes[16];
+
+            int DDS_HEADER_SIZE = 128;
+            byte[] dxtBytes = new byte[ddsBytes.Length - DDS_HEADER_SIZE];
+            Buffer.BlockCopy(ddsBytes, DDS_HEADER_SIZE, dxtBytes, 0, ddsBytes.Length - DDS_HEADER_SIZE);
+
+            Texture2D texture = new Texture2D(width, height, textureFormat, false);
+            texture.LoadRawTextureData(dxtBytes);
+            texture.Apply();
+
+            return (texture);
+        }
 
         /// <summary>
         /// マテリアルをUnity用に変換する
@@ -660,30 +615,56 @@ namespace MMD
 
             //先にテクスチャ情報を検索
             Texture2D main_texture = null;
-            if (material.usually_texture_index < format_.texture_list.texture_file.Length)
+            if (material.usually_texture_index == uint.MaxValue)
+            {
+                main_texture = Texture2D.whiteTexture;
+            }
+            else
             {
                 string texture_file_name = format_.texture_list.texture_file[material.usually_texture_index];
+
                 string path = format_.meta_header.folder + "/" + texture_file_name;
-                //main_texture = (Texture2D)AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D));
-                if (Path.GetExtension(texture_file_name).ToUpper() == ".DDS")
+                if (File.Exists(path))
                 {
-                    main_texture = Texture2D.whiteTexture;
-                }
-                else if (Path.GetExtension(texture_file_name).ToUpper() == ".TGA")
-                {
-                    main_texture = TGALoader.LoadTGA(path);
+                    if (material.usually_texture_index < format_.texture_list.texture_file.Length)
+                    {
+                        if (Path.GetExtension(texture_file_name).ToUpper() == ".DDS")
+                        {
+                            main_texture = Texture2D.whiteTexture;
+                            main_texture = TextureSupport.DDSImage.LoadDDS(path);
+                            main_texture.wrapModeV = TextureWrapMode.MirrorOnce;
+                        }
+                        else if (Path.GetExtension(texture_file_name).ToUpper() == ".TGA")
+                        {
+                            try
+                            {
+                                main_texture = TGALoader.LoadTGA(path);
+                            }
+                            catch(Exception e)
+                            {
+                                Debug.LogError(e.Message);
+                                main_texture = Texture2D.whiteTexture;
+                            }
+                            //main_texture = CreateTexture(path);
+                        }
+                        else
+                        {
+                            main_texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+                            main_texture.LoadImage(File.ReadAllBytes(path));   // Fill the texture field 
+                        }
+                        //main_texture.alphaIsTransparency = true;
+                    }
                 }
                 else
                 {
-                    main_texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-                    main_texture.LoadImage(File.ReadAllBytes(path));   // Fill the texture field 
+                    main_texture = Texture2D.whiteTexture;
                 }
-                //main_texture.alphaIsTransparency = true;
             }
 
-            Material result = new Material(Resources.Load<Material>("Transparent"));
-            //Material result = new Material(Shader.Find("HDRenderPipeline/Lit"));
-            result.renderQueue = (int)(3000 + material_index);
+            Material result = new Material(Resources.Load<Material>("Transparent"))
+            {
+                renderQueue = (int)(3000 + material_index)
+            };
             result.SetTexture("_BaseColorMap", main_texture);
             result.SetVector("_BaseColor", material.diffuse_color);
             result.SetFloat("_TransparentSortPriority", material_index);

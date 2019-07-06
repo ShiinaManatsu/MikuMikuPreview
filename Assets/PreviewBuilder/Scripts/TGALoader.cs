@@ -33,12 +33,14 @@ public static class TGALoader
             // Skip a byte of header information we don't care about.
             r.BaseStream.Seek(1, SeekOrigin.Current);
 
-            Texture2D tex = new Texture2D(width, height);
+            Texture2D tex;
             Color32[] pulledColors = new Color32[width * height];
+            int count = width * height;
 
             if (bitDepth == 32)
             {
-                for (int i = 0; i < width * height; i++)
+                tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+                for (int i = 0; i < count; i++)
                 {
                     byte red = r.ReadByte();
                     byte green = r.ReadByte();
@@ -50,13 +52,23 @@ public static class TGALoader
             }
             else if (bitDepth == 24)
             {
-                for (int i = 0; i < width * height; i++)
+                tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+                int i = 0;
+                try
                 {
-                    byte red = r.ReadByte();
-                    byte green = r.ReadByte();
-                    byte blue = r.ReadByte();
+                    for (i = 0; i < count; i++)
+                    {
+                        byte red = r.ReadByte();
+                        byte green = r.ReadByte();
+                        byte blue = r.ReadByte();
 
-                    pulledColors[i] = new Color32(blue, green, red, 1);
+                        pulledColors[i] = new Color32(blue, green, red, 1);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                    Debug.Log($"{i} of {count}");
                 }
             }
             else
