@@ -60,12 +60,12 @@ public class UIManager : MonoBehaviour
             case var language when (language == SystemLanguage.Chinese) || (language == SystemLanguage.ChineseSimplified) || (language == SystemLanguage.ChineseTraditional):
                 FilesReadingText = @"正在从目录收集文件";
                 LoadingText = @"读取中";
-                TipText = @"游览模式下按"" U ""显示界面,按"" R ""重置相机";
+                TipText = @"游览模式下按"" U ""显示界面";
                 break;
             default:
                 LoadingText = @"Loading";
                 FilesReadingText = @"Reading files";
-                TipText = @"Press ""U"" to show UI, "" R ""to reset camera";
+                TipText = @"Press ""U"" to show UI";
                 break;
         }
     }

@@ -3,7 +3,6 @@ using SFB;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityTemplateProjects;
 
 public class ButtonMethods : MonoBehaviour
 {
@@ -40,7 +39,6 @@ public class ButtonMethods : MonoBehaviour
     public void HideButton()
     {
         StartCoroutine(SetCanvasAlpha(canvas.alpha, 0, 0.5f));
-        camera.GetComponent<SimpleCameraController>().enabled = true;
     }
 
     private IEnumerator SetCanvasAlpha(float oldValue, float newValue, float duration)
