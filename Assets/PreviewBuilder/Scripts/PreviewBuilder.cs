@@ -43,26 +43,6 @@ namespace PreviewBuilder
 
         private static GameObject fbxGameObject = null;
 
-
-        private void Start()
-        {
-            UIContainer = canvas.GetComponent<UIContainer>();
-            InputFieldMethods.RTHeight = 2000;
-            InputFieldMethods.RTWidth = 1000;
-            rt = new RenderTexture(InputFieldMethods.RTWidth, InputFieldMethods.RTHeight, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB)
-            {
-                name = "rt",
-                depth = 0,
-                anisoLevel = 0,
-                dimension = TextureDimension.Tex2D,
-                antiAliasing = 8
-            };
-
-            StartCoroutine(ShowTip(UIManager.TipText, 1));
-            StartCoroutine(ShowTip($"Max size of texture: {SystemInfo.maxTextureSize.ToString()} * {SystemInfo.maxTextureSize.ToString()}", 2));
-
-            MaterialExtraConfigurationList = MaterialException.CreateMaterialConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "MaterialConfiguration.xml"));
-        }
         #endregion
 
         #region Public Members
@@ -231,6 +211,10 @@ namespace PreviewBuilder
             }
 
             fbxGameObject = MMD.PMXConverter.CreateGameObject(pmx_format, false, MMD.PMXConverter.AnimationType.LegacyAnimation, false, 1f);
+            fbxGameObject.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(x =>
+            {
+                x.shadowCastingMode = ShadowCastingMode.Off;
+            });
             fbxGameObject.transform.SetParent(GameObject.Find("Parent").transform);
             fbxGameObject.transform.localScale = new Vector3(0.085f, 0.085f, 0.085f);
             fbxGameObject.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
@@ -257,6 +241,25 @@ namespace PreviewBuilder
             MoveNext();
         }
 
+        void Start()
+        {
+            UIContainer = canvas.GetComponent<UIContainer>();
+            InputFieldMethods.RTHeight = 2000;
+            InputFieldMethods.RTWidth = 1000;
+            rt = new RenderTexture(InputFieldMethods.RTWidth, InputFieldMethods.RTHeight, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB)
+            {
+                name = "rt",
+                depth = 0,
+                anisoLevel = 0,
+                dimension = TextureDimension.Tex2D,
+                antiAliasing = 8
+            };
+
+            StartCoroutine(ShowTip(UIManager.TipText, 1));
+            StartCoroutine(ShowTip($"Max size of texture: {SystemInfo.maxTextureSize.ToString()} * {SystemInfo.maxTextureSize.ToString()}", 2));
+
+            MaterialExtraConfigurationList = MaterialException.CreateMaterialConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "MaterialConfiguration.xml"));
+        }
 
         private void FixedUpdate()
         {
