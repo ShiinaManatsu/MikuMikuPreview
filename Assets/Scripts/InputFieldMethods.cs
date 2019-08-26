@@ -10,16 +10,16 @@ public class InputFieldMethods : MonoBehaviour
 {
     private static int rTWidth = 1000;
     private static int rTHeight = 2000;
-    public GameObject button;
-    public GameObject inputText;
-    public GameObject spotLight;
+    //public GameObject button;
+    //public GameObject inputText;
+    public GameObject lightTarget;
     private static ProceduralSky proceduralSky;
-    private static Light light;
+    private static Light[] light;
 
     private void Start()
     {
-        light = spotLight.GetComponent<Light>();
-        
+        light = lightTarget.GetComponentsInChildren<Light>();
+
         GameObject.Find("Volume Settings").GetComponent<Volume>().profile.TryGet(out proceduralSky);
     }
 
@@ -62,7 +62,10 @@ public class InputFieldMethods : MonoBehaviour
 
     public void SliderValueChanged()
     {
-        light.intensity = GetComponent<Slider>().value;
+        for(int i = 0; i < light.Length; i++)
+        {
+            light[i].intensity = GetComponent<Slider>().value;
+        }
     }
 
     public void SkySliderValueChanged()
