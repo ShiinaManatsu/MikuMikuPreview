@@ -1,7 +1,9 @@
-﻿using MMD.PMX;
+﻿using B83.Image.BMP;
+using MMD.PMX;
 using Pfim;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,6 +13,7 @@ namespace MMD
 {
     public class PMXConverter : System.IDisposable
     {
+        private static BMPLoader BMPLoader = new BMPLoader();
         /// <summary>
         /// アニメーションタイプ
         /// </summary>
@@ -634,14 +637,28 @@ namespace MMD
                             main_texture = TextureSupport.DDSImage.LoadDDS(path);
                             main_texture.wrapModeV = TextureWrapMode.MirrorOnce;
                         }
+                        else if (Path.GetExtension(texture_file_name).ToUpper() == ".BMP")
+                        {
+                            main_texture = BMPLoader.LoadBMP(path).ToTexture2D();
+                        }
                         else if (Path.GetExtension(texture_file_name).ToUpper() == ".TGA")
                         {
+
                             try
                             {
-                                main_texture = TGALoader.LoadTGA(path);
+                                var bitmap = Paloma.TargaImage.LoadTargaImage(path);
+                                main_texture = new Texture2D(bitmap.Width, bitmap.Height);
+
+                                var stream = new MemoryStream();
+                                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                                main_texture.LoadImage(stream.ToArray());
+                                stream.Close();
+                                main_texture.Apply();
                             }
-                            catch(Exception e)
+                            catch (Exception e)
                             {
+                                Debug.Log("TGA Exception");
+                                Debug.Log(texture_file_name);
                                 Debug.LogError(e.Message);
                                 main_texture = Texture2D.whiteTexture;
                             }
