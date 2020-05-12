@@ -49,9 +49,11 @@ public class InputFieldMethods : MonoBehaviour
 
     public void FieldChanged()
     {
-        if (Directory.Exists(GetComponent<InputField>().text))
+        var path = GetComponent<InputField>().text;
+        if (Directory.Exists(path))
         {
             GameObject.Find("Preview Builder Main").GetComponent<PreviewBuilder.PreviewBuilder>().IsFolderCorrect = true;
+            PreviewBuilder.PreviewBuilder.WorkLocation = path;
             GameObject.Find("Preview Builder Main").GetComponent<PreviewBuilder.PreviewBuilder>().FillPmxList();
         }
         else
