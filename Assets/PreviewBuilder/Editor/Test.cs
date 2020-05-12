@@ -109,10 +109,7 @@ namespace PreviewBuilder
             }
 
             var fbxGameObject = MMD.PMXConverter.CreateGameObject(pmx_format, false, MMD.PMXConverter.AnimationType.LegacyAnimation, false, 1f);
-            fbxGameObject.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(x =>
-            {
-                x.shadowCastingMode = ShadowCastingMode.Off;
-            });
+
             fbxGameObject.transform.SetParent(GameObject.Find("Parent").transform);
             fbxGameObject.transform.localScale = new Vector3(0.085f, 0.085f, 0.085f);
             fbxGameObject.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
