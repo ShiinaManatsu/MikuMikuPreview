@@ -90,12 +90,10 @@ namespace MMD
 
             try
             {
-                var creation_info = CreateMeshCreationInfo(); // メッシュを作成する為の情報を作成
-                var mesh = CreateMesh(creation_info); // メッシュの生成・設定
-                var materials = CreateMaterials(creation_info); // マテリアルの生成・設定
+                var creationInfo = CreateMeshCreationInfo(); 
+                var mesh = CreateMesh(creationInfo); 
+                var materials = CreateMaterials(creationInfo); 
 
-                //GameObject[] bones = CreateBones();                                         // ボーンの生成・設定
-                //SkinnedMeshRenderer[] renderers = BuildingBindpose(mesh, materials);//, bones); // バインドポーズの作成
                 SetMeshRenderer(mesh, materials);
                 return root_game_object_;
             }
@@ -453,10 +451,6 @@ namespace MMD
         /// <returns>マテリアル</returns>
         private Material[] EntryAttributesForMaterials()
         {
-            //材質モーフが透過を要望するか
-            //bool[] is_transparent_by_material = false;//IsTransparentByMaterial(); //材質
-            //bool[] is_transparent_by_material_morph = false[];// IsTransparentByMaterialMorph(); //材質モーフ
-            //bool[] is_transparent_by_texture_alpha = false[];//IsTransparentByTextureAlpha(); //テクスチャのアルファ値(UV考慮済み)
 
             return Enumerable.Range(0, format_.material_list.material.Length)
                 .Select(x => new
